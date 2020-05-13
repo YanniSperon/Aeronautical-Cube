@@ -12,7 +12,15 @@ import SceneKit
 extension GameViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         if (contact.nodeA === ship! || contact.nodeB === ship!) {
-            events.append(BirdDeathEvent())
+            var hasBirdDeathEvent = false
+            for event in events {
+                if event is BirdDeathEvent {
+                    hasBirdDeathEvent = true
+                }
+            }
+            if (!hasBirdDeathEvent) {
+                events.append(BirdDeathEvent())
+            }
         }
     }
 }

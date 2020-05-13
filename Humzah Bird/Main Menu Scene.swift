@@ -31,10 +31,16 @@ extension GameViewController {
         mainMenuHighScoreTextNode!.position = SCNVector3(-temp/2.0, 3, -6.5)
         
         let moveForward = SCNAction.move(to: SCNVector3(-2.896, 1.0, -6.000), duration: 0.5)
-        moveForward.timingMode = .easeInEaseOut;
+        moveForward.timingMode = .easeInEaseOut
         let moveBackward = SCNAction.move(to: SCNVector3(-2.896, 1.0, -7.0), duration: 0.5)
-        moveBackward.timingMode = .easeInEaseOut;
+        moveBackward.timingMode = .easeInEaseOut
         textNode?.runAction(SCNAction.repeatForever(SCNAction.sequence([moveForward, moveBackward])), forKey: "moveBackAndForth")
+        
+        let moveUp = SCNAction.moveBy(x: 0.0, y: 0.5, z: 0.0, duration: 0.5)
+        moveUp.timingMode = .easeInEaseOut
+        let moveDown = SCNAction.moveBy(x: 0.0, y: -0.5, z: 0.0, duration: 0.5)
+        moveDown.timingMode = .easeInEaseOut
+        mainMenuHighScoreTextNode?.runAction(SCNAction.repeatForever(SCNAction.sequence([moveUp, moveDown])), forKey: "moveUpAndDown")
         
         // retrieve the SCNView
         scnView = self.view as? SCNView
@@ -61,6 +67,7 @@ extension GameViewController {
           incomingPointOfView: nil,
           completionHandler: nil
         )
+        
         scnView!.overlaySKScene = nil
         if let textGeometry = mainMenuHighScoreTextNode!.geometry as? SCNText {
             textGeometry.string = "High Score: \(highScore)"

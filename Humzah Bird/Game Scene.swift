@@ -240,7 +240,7 @@ extension GameViewController {
           incomingPointOfView: nil,
           completionHandler: nil
         )
-        ship!.physicsBody?.applyForce(SCNVector3(0.0, 7.0, 0.0), asImpulse: true)
+        ship!.physicsBody?.applyForce(SCNVector3(0.0, 10.0, 0.0), asImpulse: true)
         //ship!.physicsBody!.applyForce(SCNVector3(0.0, 50.0, 0.0), asImpulse: true)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView!.addGestureRecognizer(tapGesture)

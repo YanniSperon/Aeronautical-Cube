@@ -44,10 +44,15 @@ extension GameViewController: SCNSceneRendererDelegate {
             for _ in events {
                 let event = events.popLast()
                 if event is BirdDeathEvent {
+                    print("bird death event")
                     currentScene = .MainMenu
                     scoreTextNode!.attributedText = NSAttributedString(string: "Score: 0", attributes: [.font: UIFont.systemFont(ofSize: 36.0), .foregroundColor: UIColor.white])
+                    currentPOV = .Behind
+                    scnView?.pointOfView = behindCameraNode
                     displayMainMenuScene()
                     event?.processEvent()
+                    events.removeAll()
+                    break
                 }
             }
         }

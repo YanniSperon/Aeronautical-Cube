@@ -57,7 +57,7 @@ class GameViewController: UIViewController {
             displayGameScene()
         } else if (currentScene == .Game) {
             //ship!.physicsBody?.applyForce(SCNVector3(0.0, 10.0, 0.0), asImpulse: true)
-            ship!.physicsBody?.velocity = SCNVector3(0.0, 7.0, 0.0)
+            ship!.physicsBody?.velocity = SCNVector3(0.0, 10.0, 0.0)
             //ship!.physicsBody!.applyForce(SCNVector3(0.0, 105.0, 0.0), asImpulse: true)
             // retrieve the SCNView
             /*let scnView = self.view as! SCNView
