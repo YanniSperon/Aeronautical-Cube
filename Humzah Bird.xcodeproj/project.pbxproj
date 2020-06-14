@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		091C04052496A96F0093D72E /* StatisticsGUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091C04042496A96F0093D72E /* StatisticsGUI.swift */; };
+		091C04072496A9790093D72E /* SettingsGUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091C04062496A9790093D72E /* SettingsGUI.swift */; };
+		09EEF7DE249431BD00820765 /* GUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEF7DD249431BD00820765 /* GUI.swift */; };
+		09EEF7E0249435DA00820765 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEF7DF249435DA00820765 /* Player.swift */; };
+		09EEF7E224943A9F00820765 /* Data Management.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEF7E124943A9F00820765 /* Data Management.swift */; };
+		09EEF7E52494422200820765 /* MainMenuGUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEF7E42494422200820765 /* MainMenuGUI.swift */; };
+		09EEF7E72494436500820765 /* GameGUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEF7E62494436500820765 /* GameGUI.swift */; };
 		2A7FB1BD2454E65E00127664 /* Renderer Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FB1BC2454E65E00127664 /* Renderer Delegate.swift */; };
 		2A7FB1BF2454E68200127664 /* Physics Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FB1BE2454E68200127664 /* Physics Delegate.swift */; };
 		2A7FB1C32454F03C00127664 /* Game Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7FB1C22454F03C00127664 /* Game Scene.swift */; };
@@ -42,6 +49,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		091C04042496A96F0093D72E /* StatisticsGUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsGUI.swift; sourceTree = "<group>"; };
+		091C04062496A9790093D72E /* SettingsGUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGUI.swift; sourceTree = "<group>"; };
+		09EEF7DD249431BD00820765 /* GUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GUI.swift; sourceTree = "<group>"; };
+		09EEF7DF249435DA00820765 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		09EEF7E124943A9F00820765 /* Data Management.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data Management.swift"; sourceTree = "<group>"; };
+		09EEF7E42494422200820765 /* MainMenuGUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuGUI.swift; sourceTree = "<group>"; };
+		09EEF7E62494436500820765 /* GameGUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGUI.swift; sourceTree = "<group>"; };
 		2A7FB1BC2454E65E00127664 /* Renderer Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Renderer Delegate.swift"; sourceTree = "<group>"; };
 		2A7FB1BE2454E68200127664 /* Physics Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Physics Delegate.swift"; sourceTree = "<group>"; };
 		2A7FB1C22454F03C00127664 /* Game Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game Scene.swift"; sourceTree = "<group>"; };
@@ -90,6 +104,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09EEF7E32494420600820765 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				09EEF7DD249431BD00820765 /* GUI.swift */,
+				09EEF7E42494422200820765 /* MainMenuGUI.swift */,
+				09EEF7E62494436500820765 /* GameGUI.swift */,
+				091C04042496A96F0093D72E /* StatisticsGUI.swift */,
+				091C04062496A9790093D72E /* SettingsGUI.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2A7FB1CB24552F1500127664 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +148,7 @@
 		2A92D1642453EEF6008C35B2 /* Humzah Bird */ = {
 			isa = PBXGroup;
 			children = (
+				09EEF7E32494420600820765 /* Views */,
 				2A7FB1CB24552F1500127664 /* Events */,
 				2A92D1652453EEF6008C35B2 /* AppDelegate.swift */,
 				2A92D1672453EEF6008C35B2 /* art.scnassets */,
@@ -135,6 +162,8 @@
 				2A7FB1C22454F03C00127664 /* Game Scene.swift */,
 				2A7FB1C42454F04B00127664 /* Main Menu Scene.swift */,
 				2A7FB1C62454F08900127664 /* Global Variables.swift */,
+				09EEF7DF249435DA00820765 /* Player.swift */,
+				09EEF7E124943A9F00820765 /* Data Management.swift */,
 			);
 			path = "Humzah Bird";
 			sourceTree = "<group>";
@@ -289,15 +318,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09EEF7E0249435DA00820765 /* Player.swift in Sources */,
 				2A7FB1CF24552F2B00127664 /* BirdDeathEvent.swift in Sources */,
+				091C04072496A9790093D72E /* SettingsGUI.swift in Sources */,
 				2A7FB1CD24552F1D00127664 /* Event.swift in Sources */,
 				2A7FB1BD2454E65E00127664 /* Renderer Delegate.swift in Sources */,
 				2A7FB1C72454F08900127664 /* Global Variables.swift in Sources */,
 				2A7FB1C32454F03C00127664 /* Game Scene.swift in Sources */,
 				2A92D16A2453EEF6008C35B2 /* GameViewController.swift in Sources */,
+				09EEF7E72494436500820765 /* GameGUI.swift in Sources */,
 				2A92D1662453EEF6008C35B2 /* AppDelegate.swift in Sources */,
 				2A7FB1BF2454E68200127664 /* Physics Delegate.swift in Sources */,
 				2A7FB1C52454F04B00127664 /* Main Menu Scene.swift in Sources */,
+				09EEF7DE249431BD00820765 /* GUI.swift in Sources */,
+				09EEF7E52494422200820765 /* MainMenuGUI.swift in Sources */,
+				09EEF7E224943A9F00820765 /* Data Management.swift in Sources */,
+				091C04052496A96F0093D72E /* StatisticsGUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

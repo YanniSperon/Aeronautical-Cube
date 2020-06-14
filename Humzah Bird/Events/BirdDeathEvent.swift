@@ -14,9 +14,13 @@ class BirdDeathEvent: Event {
     }
     
     override func processEvent() {
-        if (currentScore > highScore) {
-            highScore = currentScore
+        if (currentPlayer!.currentScore > currentPlayer!.highScore) {
+            DispatchQueue.main.async {
+                currentPlayer!.highScore = currentPlayer!.currentScore
+            }
         }
-        currentScore = 0
+        DispatchQueue.main.async {
+            currentPlayer!.currentScore = 0
+        }
     }
 }

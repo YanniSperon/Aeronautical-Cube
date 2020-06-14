@@ -8,6 +8,7 @@
 
 import Foundation
 import SceneKit
+import SwiftUI
 import SpriteKit
 
 extension GameViewController {
@@ -95,14 +96,6 @@ extension GameViewController {
         
         
         
-        // INIT OVERLAY GUI: overlayGUI
-        
-        overlayGUI = SKScene(size: scnView!.bounds.size)
-        //overlayGUI?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        scoreTextNode = SKLabelNode()
-        scoreTextNode!.attributedText = NSAttributedString(string: "Score: 0", attributes: [.font: UIFont.systemFont(ofSize: 36.0), .foregroundColor: UIColor.white])
-        scoreTextNode!.position = CGPoint(x: scnView!.bounds.standardized.maxX * 3 / 4, y: scnView!.bounds.standardized.maxY * 7 / 8)
-        overlayGUI?.addChild(scoreTextNode!)
         
         /*topObstacle = tempScene?.rootNode.childNode(withName: "topObstacle", recursively: true)
         topObstacle?.name = "topObstacle"
@@ -254,7 +247,12 @@ extension GameViewController {
         downSwipeGesture.direction = .down
         scnView!.addGestureRecognizer(downSwipeGesture)
         scnView!.audioListener = ship
-        scnView!.overlaySKScene = overlayGUI
+        
+        DispatchQueue.main.async {
+            currentPlayer!.timesPlayed += 1
+            currentPlayer!.save()
+            currentPlayer!.currentSceneInt = Scene.Game
+        }
     }
     
     func resetGameScene() {

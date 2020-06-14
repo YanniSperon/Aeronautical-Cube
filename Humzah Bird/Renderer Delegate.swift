@@ -11,7 +11,7 @@ import SceneKit
 
 extension GameViewController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if (currentScene == .Game) {
+        if (currentPlayer!.currentSceneInt == Scene.Game) {
             for node in gameScene!.rootNode.childNodes {
                 if ((node.name!.contains("Obstacle")) && (node.presentation.position.z + 1.0) <= ship!.presentation.position.z) {
                     if (lastYIncrement < 0.005 && lastYIncrement > -0.005) {
@@ -19,24 +19,28 @@ extension GameViewController: SCNSceneRendererDelegate {
                         var startingYPosition: Float = -40.0
                         if (node.name!.contains("top")) {
                             startingYPosition = 65.0
-                            currentScore += 1
-                            scoreTextNode!.attributedText = NSAttributedString(string: "Score: \(currentScore)", attributes: [.font: UIFont.systemFont(ofSize: 36.0), .foregroundColor: UIColor.white])
+                            DispatchQueue.main.async {
+                                currentPlayer!.currentScore += 1
+                            }
                         }
                         node.position.y = startingYPosition + lastYIncrement
                     } else {
                         var startingYPosition: Float = -40.0
                         if (node.name!.contains("top")) {
                             startingYPosition = 65.0
-                            currentScore += 1
-                            scoreTextNode!.attributedText = NSAttributedString(string: "Score: \(currentScore)", attributes: [.font: UIFont.systemFont(ofSize: 36.0), .foregroundColor: UIColor.white])
+                            DispatchQueue.main.async {
+                                currentPlayer!.currentScore += 1
+                            }
                         }
                         node.position.y = startingYPosition + lastYIncrement
                         lastYIncrement = 0.0
                     }
                     node.position.z = nextSpawnZ
-                    if (currentScore > highScore) {
-                        highScore = currentScore
-                        defaults.set(highScore, forKey: defaultsKeys.highScore)
+                    if (currentPlayer!.currentScore > currentPlayer!.highScore) {
+                        DispatchQueue.main.async {
+                            currentPlayer!.highScore = currentPlayer!.currentScore
+                            currentPlayer!.save()
+                        }
                     }
                 }
             }
@@ -44,13 +48,16 @@ extension GameViewController: SCNSceneRendererDelegate {
             for _ in events {
                 let event = events.popLast()
                 if event is BirdDeathEvent {
-                    print("bird death event")
-                    currentScene = .MainMenu
-                    scoreTextNode!.attributedText = NSAttributedString(string: "Score: 0", attributes: [.font: UIFont.systemFont(ofSize: 36.0), .foregroundColor: UIColor.white])
-                    currentPOV = .Behind
-                    scnView?.pointOfView = behindCameraNode
-                    displayMainMenuScene()
-                    event?.processEvent()
+                    DispatchQueue.main.async {
+                        print("bird death event")
+                        currentPlayer!.currentSceneInt = Scene.MainMenu
+                        self.currentPOV = .Behind
+                        self.scnView?.pointOfView = self.behindCameraNode
+                        self.displayMainMenuScene()
+                        currentPlayer!.sumOfScores += currentPlayer!.currentScore
+                        event?.processEvent()
+                        currentPlayer!.save()
+                    }
                     events.removeAll()
                     break
                 }

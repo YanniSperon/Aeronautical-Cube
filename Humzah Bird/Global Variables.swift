@@ -8,9 +8,11 @@
 
 import Foundation
 
-enum SceneTypes {
-    case Game
-    case MainMenu
+struct Scene {
+    static let MainMenu = 0
+    static let Game = 1
+    static let Statistics = 2
+    static let Settings = 3
 }
 
 enum POVType {
@@ -19,16 +21,10 @@ enum POVType {
     case Right
 }
 
+var currentPlayer: Player?
 var lastYIncrement: Float = 0.0
 var startingNextSpawnZ: Float = 50.0
 var nextSpawnZ: Float = startingNextSpawnZ
-var currentScore: Int = 0
-var highScore: Int = 0
 var minYIncrement: Float = -5.0
 var maxYIncrement: Float = 5.0
-
-struct defaultsKeys {
-    static let highScore = "highScore"
-}
-
-let defaults = UserDefaults.standard
+var gameViewController: GameViewController?

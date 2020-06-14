@@ -7,13 +7,16 @@
 //
 
 import Foundation
-import SceneKit
 import SpriteKit
+import SceneKit
+import SwiftUI
 
 extension GameViewController {
     
     func loadMainMenuScene() {
-        highScore = defaults.integer(forKey: defaultsKeys.highScore)
+        currentPlayer = Player.load()
+        
+        print("UUID: \(currentPlayer!.uuid)\n    Current Score: \(currentPlayer!.currentScore)\n    High Score: \(currentPlayer!.highScore)\n    Total Games Played: \(currentPlayer!.timesPlayed)\n    Sum Of Scores: \(currentPlayer!.sumOfScores)\n    Average Score: \(CGFloat(currentPlayer!.sumOfScores) / CGFloat(currentPlayer!.timesPlayed))")
         
         mainMenuScene = SCNScene(named: "art.scnassets/Main Menu.scn")!
         
@@ -21,26 +24,19 @@ extension GameViewController {
         
         tempShip?.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 1, z: 0, duration: 1.0)), forKey: "rotateAboutYAxis")
         
-        let textNode = mainMenuScene!.rootNode.childNode(withName: "titleText", recursively: true)
+        let textNodeTop = mainMenuScene!.rootNode.childNode(withName: "titleTextTop", recursively: true)
+        let textNodeBottom = mainMenuScene!.rootNode.childNode(withName: "titleTextBottom", recursively: true)
         
-        mainMenuHighScoreTextNode = mainMenuScene!.rootNode.childNode(withName: "highScoreText", recursively: true)
-        if let textGeometry = mainMenuHighScoreTextNode!.geometry as? SCNText {
-            textGeometry.string = "High Score: \(highScore)"
-        }
-        let temp = mainMenuHighScoreTextNode!.scale.x * (mainMenuHighScoreTextNode!.boundingBox.max.x - mainMenuHighScoreTextNode!.boundingBox.min.x)
-        mainMenuHighScoreTextNode!.position = SCNVector3(-temp/2.0, 3, -6.5)
-        
-        let moveForward = SCNAction.move(to: SCNVector3(-2.896, 1.0, -6.000), duration: 0.5)
-        moveForward.timingMode = .easeInEaseOut
-        let moveBackward = SCNAction.move(to: SCNVector3(-2.896, 1.0, -7.0), duration: 0.5)
-        moveBackward.timingMode = .easeInEaseOut
-        textNode?.runAction(SCNAction.repeatForever(SCNAction.sequence([moveForward, moveBackward])), forKey: "moveBackAndForth")
-        
-        let moveUp = SCNAction.moveBy(x: 0.0, y: 0.5, z: 0.0, duration: 0.5)
-        moveUp.timingMode = .easeInEaseOut
-        let moveDown = SCNAction.moveBy(x: 0.0, y: -0.5, z: 0.0, duration: 0.5)
-        moveDown.timingMode = .easeInEaseOut
-        mainMenuHighScoreTextNode?.runAction(SCNAction.repeatForever(SCNAction.sequence([moveUp, moveDown])), forKey: "moveUpAndDown")
+        let moveForwardTop = SCNAction.move(to: SCNVector3(-2.842, 3.0, -6.000), duration: 0.5)
+        moveForwardTop.timingMode = .easeInEaseOut
+        let moveBackwardTop = SCNAction.move(to: SCNVector3(-2.842, 3.0, -7.0), duration: 0.5)
+        moveBackwardTop.timingMode = .easeInEaseOut
+        textNodeTop?.runAction(SCNAction.repeatForever(SCNAction.sequence([moveForwardTop, moveBackwardTop])), forKey: "moveBackAndForthTop")
+        let moveForwardBottom = SCNAction.move(to: SCNVector3(-1.21, 2.0, -6.000), duration: 0.5)
+        moveForwardBottom.timingMode = .easeInEaseOut
+        let moveBackwardBottom = SCNAction.move(to: SCNVector3(-1.21, 2.0, -7.0), duration: 0.5)
+        moveBackwardBottom.timingMode = .easeInEaseOut
+        textNodeBottom?.runAction(SCNAction.repeatForever(SCNAction.sequence([moveForwardBottom, moveBackwardBottom])), forKey: "moveBackAndForthBottom")
         
         // retrieve the SCNView
         scnView = self.view as? SCNView
@@ -58,6 +54,15 @@ extension GameViewController {
         scnView!.delegate = self
         
         //scnView!.allowsCameraControl = true
+        
+        // Create GUI
+        let AppGUI = GUI(currentPlayerUI: currentPlayer!)
+        // Overlay GUI
+        let uiController = UIHostingController(rootView: AppGUI)
+        addChild(uiController)
+        uiController.view.frame = view.frame
+        uiController.view.backgroundColor = UIColor.clear
+        view.addSubview(uiController.view)
     }
     
     func displayMainMenuScene() {
@@ -67,13 +72,8 @@ extension GameViewController {
           incomingPointOfView: nil,
           completionHandler: nil
         )
-        
-        scnView!.overlaySKScene = nil
-        if let textGeometry = mainMenuHighScoreTextNode!.geometry as? SCNText {
-            textGeometry.string = "High Score: \(highScore)"
+        DispatchQueue.main.async {
+            currentPlayer!.currentSceneInt = Scene.MainMenu
         }
-        
-        let temp = mainMenuHighScoreTextNode!.scale.x * (mainMenuHighScoreTextNode!.boundingBox.max.x - mainMenuHighScoreTextNode!.boundingBox.min.x)
-        mainMenuHighScoreTextNode!.position = SCNVector3(-temp/2.0, 3, -6.5)
     }
 }
